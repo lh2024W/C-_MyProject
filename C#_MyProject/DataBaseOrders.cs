@@ -9,7 +9,7 @@ namespace C__MyProject
 {
     public class DataBaseOrders
     {
-        string path = @"C:\Users\user\Desktop\Orders.xml";
+        string path = @"Orders.xml";
 
         public void SaveAllData(List<Order> orders)
         {

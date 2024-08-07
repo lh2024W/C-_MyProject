@@ -10,7 +10,7 @@ namespace C__MyProject
     public class DataBaseCars
     {
 
-        string path = @"C:\Users\user\Desktop\Cars.xml";
+        string path = @"Cars.xml";
 
         public void SaveAllData(List<Car> cars)
         {

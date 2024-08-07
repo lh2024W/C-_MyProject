@@ -8,7 +8,7 @@ namespace C__MyProject
 {
     public class Order : IComparable
     {
-        DataBaseCars cars;
+        //DataBaseCars cars;
         public string Brand { get; set; }
         public string Model { get; set; }
         public int Year { get; set; }
@@ -16,21 +16,12 @@ namespace C__MyProject
         public DateTime DateTime { get; set; }
         public string Description { get; set; }
 
-        public Order() { }
-
-        public Order(string description)
-        {
-
-            string licensePlate;
-
-            Console.WriteLine("Enter license plate!");
-            licensePlate = Console.ReadLine();
-            Car car1 = cars.FindCarInFile(licensePlate);
-
-            this.Brand = car1.Brand;
-            this.Model = car1.Model;
-            this.Year = car1.Year;
-            this.LicensePlate = car1.LicensePlate;
+        public Order(string description, Car car)
+        {           
+            this.Brand = car.Brand;
+            this.Model = car.Model;
+            this.Year = car.Year;
+            this.LicensePlate = car.LicensePlate;
             this.DateTime = DateTime.Now;
             this.Description = description;
         }

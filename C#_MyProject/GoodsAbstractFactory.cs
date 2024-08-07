@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace C__MyProject
 {
-    internal class Stock //склад
+    public interface IGoodsAbstractFactory
     {
-        SortedDictionary<int, Details> goods = new SortedDictionary<int, Details>();
-       
-        
+        Bearings GetBearings();
+        ShockAbsorbers GetShockAbsorbers();
 
-        
     }
 }

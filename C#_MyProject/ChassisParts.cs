@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace C__MyProject
 {
-    internal class Stock //склад
+    public abstract class ChassisParts : Details // Детали ходовой
     {
-        SortedDictionary<int, Details> goods = new SortedDictionary<int, Details>();
-       
-        
-
-        
     }
 }

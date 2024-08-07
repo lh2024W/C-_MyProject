@@ -9,11 +9,11 @@ namespace C__MyProject
 {
     public class DataBaseStock
     {
-        string path = @"C:\Users\user\Desktop\Stock.xml";
+        string path = @"Stock.xml";
 
-        public void SaveAllData(SortedDictionary<int, Good> goods)
+        public void SaveAllData(SortedDictionary<int, Details> goods)
         {
-            var serializer = new XmlSerializer(typeof(SortedDictionary<int, Good>));
+            var serializer = new XmlSerializer(typeof(SortedDictionary<int, Details>));
             var fs = new FileStream(path, FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs);
             serializer.Serialize(sw, goods);
@@ -22,9 +22,9 @@ namespace C__MyProject
 
         public void LoadAllData()
         {
-            var serializer = new XmlSerializer(typeof(SortedDictionary<int, Good>));
+            var serializer = new XmlSerializer(typeof(SortedDictionary<int, Details>));
             var read = new FileStream(path, FileMode.Open, FileAccess.Read);
-            var copy = (SortedDictionary<int, Good>)serializer.Deserialize(read);
+            var copy = (SortedDictionary<int, Details>)serializer.Deserialize(read);
 
             read.Close();
 

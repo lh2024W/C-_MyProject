@@ -1,9 +1,26 @@
-﻿namespace C__MyProject
+﻿using System;
+using System.Reflection;
+
+namespace C__MyProject
 {
     public class Program
     {
+        public delegate void DelegateChoice();
         static void Main(string[] args)
         {
+            DelegateChoice choice = CreateCar;
+            choice += CreateOrder;
+
+            int a;
+            Console.WriteLine("Enter choice:");
+            a = Convert.ToInt32 (Console.ReadLine());
+
+            ((DelegateChoice)choice.GetInvocationList()[a])();
+
+            
+
+
+
             DataBaseCars dbCars = new DataBaseCars();
             DataBaseOrders dbOrders = new DataBaseOrders();
             DataBaseEmployees dbEmployees = new DataBaseEmployees();
@@ -78,6 +95,51 @@
             //dbEmployees.SortEmployees();
 
 
+        }
+        public static void CreateCar()
+        {
+            string brand; string model; int year; string licensePlate;
+            DataBaseCars dbCars = new DataBaseCars();
+            List<Car> cars = new List<Car>();
+
+            Console.WriteLine("Введите марку автомобиля: ");
+            brand = Convert.ToString (Console.ReadLine());
+            Console.WriteLine("Введите марку автомобиля: ");
+            model = Convert.ToString(Console.ReadLine());
+            Console.WriteLine("Введите марку автомобиля: ");
+            year = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите марку автомобиля: ");
+            licensePlate = Convert.ToString(Console.ReadLine());
+
+            Car car = new Car(brand, model, year, licensePlate);
+            cars.Add (car);
+            dbCars.SaveAllData(cars);
+        }
+
+        public static void CreateOrder()
+        {
+            string description;
+            string licensePlate;
+            DataBaseCars dbCars = new DataBaseCars();
+            DataBaseOrders dbOrders = new DataBaseOrders();
+            List<Order> orders = new List<Order>();
+
+            Console.WriteLine("Введите номерной знак автомобиля для поиска: ");
+            licensePlate = Console.ReadLine();
+            Car c = dbCars.FindCarInFile(licensePlate);
+            if (c != null)
+            {
+                Console.WriteLine("Введите описание работ: ");
+                description = Console.ReadLine();
+                Order order = new Order(description, c);
+
+                orders.Add(order);
+                dbOrders.SaveAllData(orders);
+            }
+            else
+            {
+                CreateCar();
+            }
         }
     }
 }

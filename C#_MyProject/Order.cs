@@ -8,7 +8,6 @@ namespace C__MyProject
 {
     public class Order : IComparable
     {
-        //DataBaseCars cars;
         public string Brand { get; set; }
         public string Model { get; set; }
         public int Year { get; set; }

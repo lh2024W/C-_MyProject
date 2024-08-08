@@ -10,10 +10,7 @@ namespace C__MyProject
     [Serializable]
     public class Car : Transport, IComparable
     {
-        public Car() : this("не указано") { }
-
-        public Car(string licensePlate) : this("не указано", "не указано", 0, "не указано") { }
-
+        public Car() { }
         public Car(string brand, string model, int year, string licensePlate)
         {
             this.Brand = brand;
@@ -45,5 +42,7 @@ namespace C__MyProject
             Car temp = (Car)this.MemberwiseClone(); // поверхностная копия
             return temp;
         }
+
+        
     }
 }

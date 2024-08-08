@@ -34,7 +34,7 @@ namespace C__MyProject
             }
         }
 
-        public void FindOrderInFile(string description)
+        public void FindOrderInFile(string licensePlate)
         {
             var serializer = new XmlSerializer(typeof(List<Order>));
             var read = new FileStream(path, FileMode.Open, FileAccess.Read);
@@ -44,7 +44,7 @@ namespace C__MyProject
 
             foreach (var order in copy)
             {
-                if (order.Description == description)
+                if (order.Description == licensePlate)
                 {
                     Console.WriteLine(order);
                 }

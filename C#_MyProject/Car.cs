@@ -10,7 +10,7 @@ namespace C__MyProject
     [Serializable]
     public class Car : Transport, IComparable
     {
-        public Car() { }
+        public Car() : this ("Не задано!", " Не задано", 0, "Не задано") { }
         public Car(string brand, string model, int year, string licensePlate)
         {
             this.Brand = brand;
@@ -22,10 +22,16 @@ namespace C__MyProject
         public void PrintCar()
         {
             Console.WriteLine("Автомобиль: ");
-            Console.WriteLine("Бренд: " + Brand);
+            Console.WriteLine("Марка: " + Brand);
             Console.WriteLine("Модель: " + Model);
             Console.WriteLine("Год выпуска: " + Year);
             Console.WriteLine("Номерной знак: " + LicensePlate);
+        }
+
+        public override string ToString()
+        {
+            return "Марка: " + Brand + ' ' + "Модель: " + Model + ' ' + "Год выпуска: " + Year + ' '
+                + "Номерной знак: " + LicensePlate + ' ';
         }
 
         public int CompareTo(object obj)

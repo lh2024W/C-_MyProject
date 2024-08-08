@@ -10,18 +10,55 @@ namespace C__MyProject
         {
             DelegateChoice choice = CreateCar;
             choice += CreateOrder;
-
-            int a;
-            Console.WriteLine("Enter choice:");
-            a = Convert.ToInt32 (Console.ReadLine());
-
-            ((DelegateChoice)choice.GetInvocationList()[a])();
+            
+            string[] menuItems = new string[] { "\t\t\tСоздать автомобиль", "\t\t\tПосмотреть все автомобили в базе данных",
+                "\t\t\tНайти автомобиль по номерному знаку в базе данных", "\t\t\tОтсортировать автомобили по марке авто",
+                "\t\t\tСоздать заказ", "\t\t\tНайти заказ по номерному знаку автомобиля", "\t\t\tОтсортировать заказы по дате поступления",
+                "\t\t\tДобавить товар", "\t\t\tПоказать все товары в базе данных", "\t\t\tНайти товар по названию",
+                "\t\t\tНайти товар по названию производителя", "\t\t\tНайти товар по категории","\t\t\tНайти товар по дате получения",
+                "\t\t\tРаспечатать чек",
+                "\t\t\tВыход" };
 
             
+            Console.Title = "БАЗА ДАННЫХ СТО";
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\t\t\tДобрый день!");
+            Console.WriteLine("Выберите, пожалуйста, с помощью стрелок на клавиатуре нужный пункт меню:");
+            Console.WriteLine();
 
+            int row = Console.CursorTop;
+            int col = Console.CursorLeft;
+            int index = 0;
+            while (true)
+            {
+                DrawMenu(menuItems, row, col, index);
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.DownArrow:
+                        if (index < menuItems.Length - 1)
+                            index++;
+                        break;
+                    case ConsoleKey.UpArrow:
+                        if (index > 0)
+                            index--;
+                        break;
+                    case ConsoleKey.Enter:
+                        switch (index)
+                        {
+                            case 2:
+                                Console.WriteLine("Выбран выход из программы!");
+                                return;
+                            default:
+                                Console.WriteLine($"Выбран пункт: {menuItems[index]}");
+                                ((DelegateChoice)choice.GetInvocationList()[index])();
+                                break;
+                        }
+                        break;
+                }
+            }
+        
 
-
-            DataBaseCars dbCars = new DataBaseCars();
+           /* DataBaseCars dbCars = new DataBaseCars();
             DataBaseOrders dbOrders = new DataBaseOrders();
             DataBaseEmployees dbEmployees = new DataBaseEmployees();
             DataBaseStock dbStock = new DataBaseStock();
@@ -35,7 +72,7 @@ namespace C__MyProject
 
             car = new Car("Audi", "210VB", 2005, "368894AH");
             cars.Add(car);
-
+            */
             //dbCars.SaveAllData(cars);
             //dbCars.LoadAllData();
             //Console.WriteLine(dbCars.FindCarInFile("21589KO"));
@@ -47,7 +84,7 @@ namespace C__MyProject
             //licensePlate = Console.ReadLine();
             //Car c = dbCars.FindCarInFile(licensePlate);
             //Order order = new Order("Мотор стучит", c);
-            
+
 
             //orders.Add(order);
             //order.PrintOrder();
@@ -57,10 +94,11 @@ namespace C__MyProject
             //dbOrders.FindOrderInFile("Мотор стучит");
             //dbOrders.SortOrders();
 
-            // IGoodsAbstractFactory n = new NippartsFactory();
-            // Bearings b = n.GetBearings();
-            //b.PrintBearings();
-            // goods.Add(1, b);
+             //IGoodsAbstractFactory n = new NippartsFactory();
+             //Bearings b = n.GetBearings();
+             //b.PrintBearings();
+             //Articles articles = new Articles();
+             //goods.Add(articles, b);
 
             // IGoodsAbstractFactory s = new SWAGFactory();
             // Bearings bearings = s.GetBearings();
@@ -79,10 +117,6 @@ namespace C__MyProject
             //dbStock.SaveAllData(goods);//не добавляется
             //dbStock.LoadAllData();
 
-
-
-
-
             //List <Worker> employees = new List<Worker>();
             //Worker worker = new Worker("Виктор", "Иванович", "Глущенко", new DateTime(1990,10,06),
             //new DateTime(2023,01,21), new DateTime(2024,10,10), "Автослесарь", 8950.50);
@@ -96,6 +130,22 @@ namespace C__MyProject
 
 
         }
+
+        private static void DrawMenu(string[] items, int row, int col, int index)
+        {
+            Console.SetCursorPosition(col, row);
+            for (int i = 0; i < items.Length; i++)
+            {
+                if (i == index)
+                {
+                    Console.BackgroundColor = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
+                Console.WriteLine(items[i]);
+                Console.ResetColor();
+            }
+            Console.WriteLine();
+        }
         public static void CreateCar()
         {
             string brand; string model; int year; string licensePlate;
@@ -104,16 +154,18 @@ namespace C__MyProject
 
             Console.WriteLine("Введите марку автомобиля: ");
             brand = Convert.ToString (Console.ReadLine());
-            Console.WriteLine("Введите марку автомобиля: ");
+            Console.WriteLine("Введите модель автомобиля: ");
             model = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("Введите марку автомобиля: ");
+            Console.WriteLine("Введите год выпуска: ");
             year = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите марку автомобиля: ");
+            Console.WriteLine("Введите номерной знак: ");
             licensePlate = Convert.ToString(Console.ReadLine());
 
             Car car = new Car(brand, model, year, licensePlate);
             cars.Add (car);
             dbCars.SaveAllData(cars);
+            Console.WriteLine("Автомобиль добавлен!");
+            Console.Clear();
         }
 
         public static void CreateOrder()
@@ -135,9 +187,13 @@ namespace C__MyProject
 
                 orders.Add(order);
                 dbOrders.SaveAllData(orders);
+                Console.WriteLine("Заказ создан!");
+                Console.Clear();
             }
             else
             {
+                Console.WriteLine("Автомобиль с таким номерным знаком в базе данных отсутствует!");
+                Console.WriteLine("Внесем автомобиль в базу.");
                 CreateCar();
             }
         }

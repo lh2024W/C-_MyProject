@@ -15,6 +15,7 @@ namespace C__MyProject
         public DateTime DateTime { get; set; }
         public string Description { get; set; }
 
+        public Order() { }
         public Order(string description, Car car)
         {           
             this.Brand = car.Brand;
@@ -28,7 +29,7 @@ namespace C__MyProject
         public void PrintOrder()
         {
             Console.WriteLine("Автомобиль: ");
-            Console.WriteLine("Бренд: " + Brand);
+            Console.WriteLine("Марка: " + Brand);
             Console.WriteLine("Модель: " + Model);
             Console.WriteLine("Год выпуска: " + Year);
             Console.WriteLine("Номерной знак: " + LicensePlate);

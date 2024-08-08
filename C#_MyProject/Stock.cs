@@ -8,7 +8,7 @@ namespace C__MyProject
 {
     internal class Stock //склад
     {
-        SortedDictionary<int, Details> goods = new SortedDictionary<int, Details>();
+        SortedDictionary<long, Details> goods = new SortedDictionary<long, Details>();
        
         
 

@@ -8,15 +8,19 @@ namespace C__MyProject
 {
     public class SKFFactory : IGoodsAbstractFactory
     {
-        public Bearings GetBearings()
+        public Bearings GetBearings(string Name, string Accommodation, string Width1, string Width2, string OutsideDiameter1,
+            string OutsideDiameter2, string InnerDiameter1, string InnerDiameter2)
         {
-            return new SKFBearings("Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм",
-                "50,29 мм", "17,46 мм", "29 мм");
+            return new SKFBearings(Name, Accommodation, Width1, Width2, OutsideDiameter1, OutsideDiameter2,
+                InnerDiameter1, InnerDiameter2);
         }
 
-        public ShockAbsorbers GetShockAbsorbers()
+        public ShockAbsorbers GetShockAbsorbers(string Name, string Accommodation, string Side, string TypeOfFiller,
+            int QuantityPerAxle, string Guarantee, string WarrantyIncluded)
         {
-            return new SKFShockAbsorbers("Амортизатор", "Задний", "Двухсторонний", "Газооливковый", 1, "1 год или 25000 км", "2 года или 70000км");
+            return new SKFShockAbsorbers(Name, Accommodation, Side, TypeOfFiller, QuantityPerAxle, Guarantee,
+                WarrantyIncluded);
         }
+
     }
 }

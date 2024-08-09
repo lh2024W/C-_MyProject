@@ -11,9 +11,9 @@ namespace C__MyProject
     {
         string path = @"Orders.xml";
 
-        public void SaveAllData(List<Order> orders)
+        public void SaveAllData(List<OrderComponent> orders)
         {
-            var serializer = new XmlSerializer(typeof(List<Order>));
+            var serializer = new XmlSerializer(typeof(List<OrderComponent>));
             var fs = new FileStream(path, FileMode.Create, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs);
             serializer.Serialize(sw, orders);
@@ -22,9 +22,9 @@ namespace C__MyProject
 
         public void LoadAllData()
         {
-            var serializer = new XmlSerializer(typeof(List<Order>));
+            var serializer = new XmlSerializer(typeof(List<OrderComponent>));
             var read = new FileStream(path, FileMode.Open, FileAccess.Read);
-            var copy = (List<Order>)serializer.Deserialize(read);
+            var copy = (List<OrderComponent>)serializer.Deserialize(read);
 
             read.Close();
 
@@ -36,9 +36,9 @@ namespace C__MyProject
 
         public void FindOrderInFile(string licensePlate)
         {
-            var serializer = new XmlSerializer(typeof(List<Order>));
+            var serializer = new XmlSerializer(typeof(List<OrderComponent>));
             var read = new FileStream(path, FileMode.Open, FileAccess.Read);
-            var copy = (List<Order>)serializer.Deserialize(read);
+            var copy = (List<OrderComponent>)serializer.Deserialize(read);
 
             read.Close();
 
@@ -53,9 +53,9 @@ namespace C__MyProject
 
         public void SortOrders()
         {
-            var serializer = new XmlSerializer(typeof(List<Order>));
+            var serializer = new XmlSerializer(typeof(List<OrderComponent>));
             var read = new FileStream(path, FileMode.Open, FileAccess.Read);
-            var copy = (List<Order>)serializer.Deserialize(read);
+            var copy = (List<OrderComponent>)serializer.Deserialize(read);
 
             read.Close();
 

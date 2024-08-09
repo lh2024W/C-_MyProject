@@ -11,11 +11,11 @@ namespace C__MyProject
         public Requisites requisites { get; set; }
         public int NumberOfDocument { get; set; }
         public DateTime DateTime { get; set; }
-        public Order Order { get; set; }
+        public OrderComponent Order { get; set; }
         public Good Good { get; set; }
         public Worker Worker { get; set; }
 
-        public Check(Requisites requisites, int numberOfDocument, DateTime dateTime, Order order, Good good, Worker worker)
+        public Check(Requisites requisites, int numberOfDocument, DateTime dateTime, OrderComponent order, Good good, Worker worker)
         {
             numberOfDocument = 0;
             numberOfDocument++;

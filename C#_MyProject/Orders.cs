@@ -9,7 +9,7 @@ namespace C__MyProject
 {
     public class Orders : IEnumerable
     {
-        List<Order> orders = new List<Order>();
+        List<OrderComponent> orders = new List<OrderComponent>();
 
         public override bool Equals(object obj)
         {

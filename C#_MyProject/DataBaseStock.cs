@@ -34,5 +34,19 @@ namespace C__MyProject
             }
         }
 
+        public void FindGoodByName(string name)
+        {
+            var serializer = new XmlSerializer(typeof(SortedDictionary<int, Details>));
+            var read = new FileStream(path, FileMode.Open, FileAccess.Read);
+            var copy = (SortedDictionary<int, Details>)serializer.Deserialize(read);
+
+            read.Close();
+
+            foreach (var good in copy)
+            {
+                //if (good.Value.Name == name)???
+                    Console.WriteLine(good);
+            }
+        }
     }
 }

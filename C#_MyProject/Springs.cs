@@ -18,7 +18,7 @@ namespace C__MyProject
         public string Width { get; set; } // Ширина мм
         public string ThicknessInTheCenter { get; set; } // Толщина по центру мм
         
-        public void PrintBearings()
+        public void PrintSprings()
         {
             Console.WriteLine("Наименование: " + Name);
             Console.WriteLine("Страна производитель: " + CountryManufacturer);

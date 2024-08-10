@@ -17,7 +17,7 @@ namespace C__MyProject
             string OutsideDiameter2, string SealedGasketDiameter, string InternalThread, string Guarantee);
         AirСonditioningСompressors GetAirСonditioningСompressors(string Name, string Length, string Height, int NumberOfRibs,
             string Pulley, string Weight, string AmountOfOil, string Coolant, string Inlet, string Outlet, string CompressorOil);
-        Starters GetStarters(string Name, string FilterType, string CarBrand, string CarModel, string YearCar,
+        Starters GetStarters(string Name, string CarBrand, string CarModel, string YearCar,
             int NumberOfTeeth, string Voltage, string Dimensions);
         Springs GetSprings(string Name, string Accommodation, string CarBrand, string CarModel, string Length,
             string Width, string ThicknessInTheCenter);

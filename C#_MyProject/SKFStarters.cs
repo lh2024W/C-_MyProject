@@ -8,7 +8,7 @@ namespace C__MyProject
 {
     public class SKFStarters : Starters
     {
-        public SKFStarters(string Name, string FilterType, string CarBrand, string CarModel, string YearCar,
+        public SKFStarters(string Name, string CarBrand, string CarModel, string YearCar,
             int NumberOfTeeth, string Voltage, string Dimensions)
         {
             this.Name = Name;

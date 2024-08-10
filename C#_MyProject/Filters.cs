@@ -20,7 +20,7 @@ namespace C__MyProject
         public string InternalThread { get; set; } // Внутреняя резьба мм
         public string Guarantee { get; set; } // Гарантия
 
-        public void PrintBearings()
+        public void PrintFilters()
         {
             Console.WriteLine("Наименование: " + Name);
             Console.WriteLine("Страна производитель: " + CountryManufacturer);

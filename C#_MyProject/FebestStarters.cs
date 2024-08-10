@@ -8,7 +8,7 @@ namespace C__MyProject
 {
     public class FebestStarters : Starters
     {
-        public FebestStarters(string Name, string FilterType, string CarBrand, string CarModel, string YearCar,
+        public FebestStarters(string Name, string CarBrand, string CarModel, string YearCar,
             int NumberOfTeeth, string Voltage, string Dimensions)
         {
             this.Name = Name;

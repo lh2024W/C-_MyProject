@@ -8,7 +8,7 @@ namespace C__MyProject
 {
     public class SWAGStarters : Starters
     {
-        public SWAGStarters (string Name, string FilterType, string CarBrand, string CarModel, string YearCar,
+        public SWAGStarters (string Name, string CarBrand, string CarModel, string YearCar,
             int NumberOfTeeth, string Voltage, string Dimensions)
         {
             this.Name = Name;

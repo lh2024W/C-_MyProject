@@ -40,10 +40,10 @@ namespace C__MyProject
             return new FebestAirСonditioningСompressors(Name, Length, Height, NumberOfRibs, Pulley, Weight, AmountOfOil, Coolant, Inlet, Outlet, CompressorOil);
         }
 
-        public Starters GetStarters(string Name, string FilterType, string CarBrand, string CarModel, string YearCar,
+        public Starters GetStarters(string Name, string CarBrand, string CarModel, string YearCar,
             int NumberOfTeeth, string Voltage, string Dimensions)
         {
-            return new FebestStarters(Name, FilterType, CarBrand, CarModel, YearCar, NumberOfTeeth, Voltage, Dimensions);
+            return new FebestStarters(Name, CarBrand, CarModel, YearCar, NumberOfTeeth, Voltage, Dimensions);
         }
 
         public Springs GetSprings(string Name, string Accommodation, string CarBrand, string CarModel, string Length,

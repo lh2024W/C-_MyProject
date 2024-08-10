@@ -22,5 +22,34 @@ namespace C__MyProject
                 WarrantyIncluded);
         }
 
+        public ExhaustSystem GetExhaustSystem(string Name, string Accommodation, string Material, string MetalThickness)
+        {
+            return new SKFExhaustSystem(Name, Accommodation, Material, MetalThickness);
+        }
+
+        public Filters GetFilters(string Name, string FilterType, string ExecutingFilter, string Height, string OutsideDiameter1,
+            string OutsideDiameter2, string SealedGasketDiameter, string InternalThread, string Guarantee)
+        {
+            return new SKFFilters(Name, FilterType, ExecutingFilter, Height, OutsideDiameter1,
+            OutsideDiameter2, SealedGasketDiameter, InternalThread, Guarantee);
+        }
+
+        public AirСonditioningСompressors GetAirСonditioningСompressors(string Name, string Length, string Height, int NumberOfRibs,
+            string Pulley, string Weight, string AmountOfOil, string Coolant, string Inlet, string Outlet, string CompressorOil)
+        {
+            return new SKFAirСonditioningСompressors(Name, Length, Height, NumberOfRibs, Pulley, Weight, AmountOfOil, Coolant, Inlet, Outlet, CompressorOil);
+        }
+
+        public Starters GetStarters(string Name, string FilterType, string CarBrand, string CarModel, string YearCar,
+            int NumberOfTeeth, string Voltage, string Dimensions)
+        {
+            return new SKFStarters(Name, FilterType, CarBrand, CarModel, YearCar, NumberOfTeeth, Voltage, Dimensions);
+        }
+
+        public Springs GetSprings(string Name, string Accommodation, string CarBrand, string CarModel, string Length,
+            string Width, string ThicknessInTheCenter)
+        {
+            return new SKFSprings(Name, Accommodation, CarBrand, CarModel, Length, Width, ThicknessInTheCenter);
+        }
     }
 }

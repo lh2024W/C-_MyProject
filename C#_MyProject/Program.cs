@@ -11,6 +11,10 @@ namespace C__MyProject
         public delegate void DelegateChoice();
         public delegate void DelegateChoice1();
         public delegate void DelegateChoice2();
+        public delegate void DelegateChoice3();
+        public delegate void DelegateChoice4();
+        public delegate void DelegateChoice5();
+        
         static void Main(string[] args)
         {
             //1. не проходит сериализация ордеров
@@ -31,8 +35,6 @@ namespace C__MyProject
             choice += FindCarByLisencePlate;
             choice += SortCarsByBrand;
             choice += CreateOrder;
-            choice += FindOrderByLisencePlate;
-            choice += SortOrdersByDate;
             choice += CreateGood;
             choice += PrintGoods;
             choice += FindGoodByName;
@@ -45,9 +47,9 @@ namespace C__MyProject
 
             string[] menuItems = new string[] { "\t\t\tСоздать автомобиль", "\t\t\tПосмотреть все автомобили в базе данных",
                  "\t\t\tНайти автомобиль по номерному знаку в базе данных", "\t\t\tОтсортировать автомобили в базе данных по марке авто",
-                 "\t\t\tСоздать заказ", "\t\t\tНайти заказ по номерному знаку автомобиля", 
-                 "\t\t\tОтсортировать заказы по дате поступления", "\t\t\tДобавить товар", "\t\t\tПоказать все товары в базе данных", "\t\t\tНайти товар по названию",
-                 "\t\t\tНайти товар по названию производителя", "\t\t\tНайти товар по категории","\t\t\tНайти товар по дате получения",
+                 "\t\t\tСоздать заказ", "\t\t\tДобавить товар", "\t\t\tПоказать все товары в базе данных", 
+                "\t\t\tНайти товар по названию", "\t\t\tНайти товар по названию производителя", 
+                "\t\t\tНайти товар по категории","\t\t\tНайти товар по дате получения",
                  "\t\t\tРаспечатать чек", "\t\t\tОплатить чек", "\t\t\tВыход" };
 
             Console.Title = "БАЗА ДАННЫХ СТО";
@@ -75,7 +77,7 @@ namespace C__MyProject
                     case ConsoleKey.Enter:
                         switch (index)
                         {
-                            case 16:
+                            case 14:
                                 Console.WriteLine("Выбран выход из программы!");
                                 return;
                             default:
@@ -87,7 +89,7 @@ namespace C__MyProject
                 }
             }
         
-            /* DataBaseCars dbCars = new DataBaseCars();
+            /*DataBaseCars dbCars = new DataBaseCars();
              DataBaseOrders dbOrders = new DataBaseOrders();
              DataBaseEmployees dbEmployees = new DataBaseEmployees();
              DataBaseStock dbStock = new DataBaseStock();
@@ -101,6 +103,7 @@ namespace C__MyProject
 
              car = new Car("Audi", "210VB", 2005, "368894AH");
              cars.Add(car);
+            dbOrders.LoadAllData();
             */
             //dbCars.SaveAllData(cars);
             //dbCars.LoadAllData();
@@ -204,19 +207,23 @@ namespace C__MyProject
         {
             DataBaseCars dbCars = new DataBaseCars();
             dbCars.LoadAllData();
+            Console.WriteLine("\n\n\n");
         }
 
         public static void FindCarByLisencePlate()
         {             
             DataBaseCars dbCars = new DataBaseCars();
-            Console.WriteLine("Введите номерной знак автомобиля для поиска: ");
+            Console.Clear();
+            Console.WriteLine("\n\nВведите номерной знак автомобиля для поиска: ");
             string licensePlate = Console.ReadLine();
-            Console.WriteLine(dbCars.FindCarInFile(licensePlate));
+            Console.WriteLine("Автомобиль: " + dbCars.FindCarInFile(licensePlate));
         }
 
         public static void SortCarsByBrand()
         {
+            Console.Clear();
             DataBaseCars dbCars = new DataBaseCars();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             dbCars.SortCars();
         }
 
@@ -231,6 +238,7 @@ namespace C__MyProject
             DataBaseOrders dbOrders = new DataBaseOrders();
             List<OrderComponent> orders = new List<OrderComponent>();
 
+            Console.Clear();
             Console.WriteLine("Введите номерной знак автомобиля для поиска: ");
             licensePlate = Console.ReadLine();
             Car c = dbCars.FindCarInFile(licensePlate);
@@ -241,10 +249,12 @@ namespace C__MyProject
                 Console.WriteLine("Введите описание работ: ");
                 description = Console.ReadLine();
                 OrderLeaf order = new OrderLeaf(description, c);
-
                 orders.Add(order);
-                dbOrders.SaveAllData(orders);
                 Console.Clear();
+                Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                order.PrintOrder();
+                dbOrders.SaveAllData(orders);
+                
                 Console.WriteLine("Заказ создан!");
             }
             else
@@ -265,34 +275,21 @@ namespace C__MyProject
 
                 OrderComposite order = new OrderComposite(description, brand, model, year, licensePlate);
                 orders.Add(order);
+                Console.Clear();
+                Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                order.PrintOrder();
                 dbOrders.SaveAllData(orders);
 
                 Car car = new Car(brand, model, year, licensePlate);
                 cars.Add(car);
                 dbCars.SaveAllData(cars);
-
-                Console.Clear();
                 Console.WriteLine("Заказ создан!");
             }
         }
 
-        public static void FindOrderByLisencePlate()
-        {
-            DataBaseOrders dbOrders = new DataBaseOrders();
-            Console.WriteLine("Введите номерной знак автомобиля для поиска: ");
-            string licensePlate = Console.ReadLine();
-            dbOrders.FindOrderInFile(licensePlate);
-        }
-
-        public static void SortOrdersByDate()
-        {
-            DataBaseOrders dbOrders = new DataBaseOrders();
-            dbOrders.SortOrders();
-        }
-
-
         public static void CreateGood()
         {
+            Console.WriteLine("Выберите производителя:");
             DelegateChoice1 choice = Nipparts;
             choice += SWAG;
             choice += Febest;
@@ -324,7 +321,7 @@ namespace C__MyProject
                                 return;
                             default:
                                 Console.WriteLine($"Выбран пункт: {menuItems[index]}");
-                                ((DelegateChoice)choice.GetInvocationList()[index])();
+                                ((DelegateChoice1)choice.GetInvocationList()[index])();
                                 break;
                         }
                         break;
@@ -334,13 +331,14 @@ namespace C__MyProject
 
         public static void Nipparts()
         {
-            DelegateChoice2 choice = Bearings;
-            choice += ShockAbsorbers;
-            choice += ExhaustSystem;
-            choice += Filters;
-            choice += AirСonditioningСompressors;
-            choice += Starters;
-            choice += Springs;
+            Console.Clear();
+            DelegateChoice2 choice = NippartsBearings;
+            choice += NippartsShockAbsorbers;
+            choice += NippartsExhaustSystem;
+            choice += NippartsFilters;
+            choice += NippartsAirСonditioningСompressors;
+            choice += NippartsStarters;
+            choice += NippartsSprings;
             choice += Exit;
 
             string[] menuItems = new string[] { "\t\t\tПодшипники", "\t\t\tАмортизаторы", "\t\t\tВыхлопная система",
@@ -365,11 +363,11 @@ namespace C__MyProject
                         switch (index)
                         {
                             case 8:
-                                Console.WriteLine("Выбран выход из программы!");
+                                Console.WriteLine("Выбран выход из программы!"); 
                                 return;
                             default:
                                 Console.WriteLine($"Выбран пункт: {menuItems[index]}");
-                                ((DelegateChoice)choice.GetInvocationList()[index])();
+                                ((DelegateChoice2)choice.GetInvocationList()[index])();
                                 break;
                         }
                         break;
@@ -379,13 +377,14 @@ namespace C__MyProject
 
         public static void SWAG()
         {
-            DelegateChoice2 choice = Bearings;
-            choice += ShockAbsorbers;
-            choice += ExhaustSystem;
-            choice += Filters;
-            choice += AirСonditioningСompressors;
-            choice += Starters;
-            choice += Springs;
+            Console.Clear();
+            DelegateChoice3 choice = SWAGBearings;
+            choice += SWAGShockAbsorbers;
+            choice += SWAGExhaustSystem;
+            choice += SWAGFilters;
+            choice += SWAGAirСonditioningСompressors;
+            choice += SWAGStarters;
+            choice += SWAGSprings;
             choice += Exit;
 
             string[] menuItems = new string[] { "\t\t\tПодшипники", "\t\t\tАмортизаторы", "\t\t\tВыхлопная система",
@@ -414,7 +413,7 @@ namespace C__MyProject
                                 return;
                             default:
                                 Console.WriteLine($"Выбран пункт: {menuItems[index]}");
-                                ((DelegateChoice)choice.GetInvocationList()[index])();
+                                ((DelegateChoice3)choice.GetInvocationList()[index])();
                                 break;
                         }
                         break;
@@ -424,13 +423,14 @@ namespace C__MyProject
 
         public static void Febest() 
         {
-            DelegateChoice2 choice = Bearings;
-            choice += ShockAbsorbers;
-            choice += ExhaustSystem;
-            choice += Filters;
-            choice += AirСonditioningСompressors;
-            choice += Starters;
-            choice += Springs;
+            Console.Clear();
+            DelegateChoice4 choice = FebestBearings;
+            choice += FebestShockAbsorbers;
+            choice += FebestExhaustSystem;
+            choice += FebestFilters;
+            choice += FebestAirСonditioningСompressors;
+            choice += FebestStarters;
+            choice += FebestSprings;
             choice += Exit;
 
             string[] menuItems = new string[] { "\t\t\tПодшипники", "\t\t\tАмортизаторы", "\t\t\tВыхлопная система",
@@ -459,7 +459,7 @@ namespace C__MyProject
                                 return;
                             default:
                                 Console.WriteLine($"Выбран пункт: {menuItems[index]}");
-                                ((DelegateChoice)choice.GetInvocationList()[index])();
+                                ((DelegateChoice4)choice.GetInvocationList()[index])();
                                 break;
                         }
                         break;
@@ -469,13 +469,14 @@ namespace C__MyProject
 
         public static void SKF()
         {
-            DelegateChoice2 choice = Bearings;
-            choice += ShockAbsorbers;
-            choice += ExhaustSystem;
-            choice += Filters;
-            choice += AirСonditioningСompressors;
-            choice += Starters;
-            choice += Springs;
+            Console.Clear();
+            DelegateChoice5 choice = SKFBearings;
+            choice += SKFShockAbsorbers;
+            choice += SKFExhaustSystem;
+            choice += SKFFilters;
+            choice += SKFAirСonditioningСompressors;
+            choice += SKFStarters;
+            choice += SKFSprings;
             choice += Exit;
 
             string[] menuItems = new string[] { "\t\t\tПодшипники", "\t\t\tАмортизаторы", "\t\t\tВыхлопная система",
@@ -504,7 +505,7 @@ namespace C__MyProject
                                 return;
                             default:
                                 Console.WriteLine($"Выбран пункт: {menuItems[index]}");
-                                ((DelegateChoice)choice.GetInvocationList()[index])();
+                                ((DelegateChoice5)choice.GetInvocationList()[index])();
                                 break;
                         }
                         break;
@@ -512,9 +513,10 @@ namespace C__MyProject
             }
         }
 
-        public static void Bearings()
+        public static void FebestBearings()
         {
-            IGoodsAbstractFactory n = new NippartsFactory();//????
+            Console.Clear();
+            IGoodsAbstractFactory n = new FebestFactory();
 
             Console.WriteLine("Наименование: ");
             string Name = Console.ReadLine();
@@ -533,7 +535,12 @@ namespace C__MyProject
             Console.WriteLine("Внутрений диаметр2 (мм): ");
             string InnerDiameter2 = Console.ReadLine();
             Bearings b = n.GetBearings(Name, Accommodation, Width1, Width2, OutsideDiameter1, OutsideDiameter2,
-                InnerDiameter1, InnerDiameter2);//????
+                InnerDiameter1, InnerDiameter2);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
             b.PrintBearings();
             //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
             //goods.Add(1, b);
@@ -541,9 +548,10 @@ namespace C__MyProject
             //dbStock.LoadAllData();
         }
 
-        public static void ShockAbsorbers()
+        public static void FebestShockAbsorbers()
         {
-            IGoodsAbstractFactory n = new NippartsFactory();//???
+            Console.Clear();
+            IGoodsAbstractFactory n = new FebestFactory();
 
             Console.WriteLine("Наименование: ");
             string Name = Console.ReadLine();
@@ -561,16 +569,22 @@ namespace C__MyProject
             string WarrantyIncluded = Console.ReadLine();
 
             ShockAbsorbers s = n.GetShockAbsorbers(Name, Accommodation, Side, TypeOfFiller, QuantityPerAxle, Guarantee,
-                WarrantyIncluded);//????
+                WarrantyIncluded);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
             s.PrintShockAbsorbers();
             //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
             //goods.Add(1, b);
             //dbStock.SaveAllData(goods);//не добавляется
             //dbStock.LoadAllData();
         }
-        public static void ExhaustSystem()
+        public static void FebestExhaustSystem()
         {
-            IGoodsAbstractFactory n = new NippartsFactory();//???
+            Console.Clear();
+            IGoodsAbstractFactory n = new FebestFactory();
 
             Console.WriteLine("Наименование: ");
             string Name = Console.ReadLine();
@@ -581,7 +595,12 @@ namespace C__MyProject
             Console.WriteLine("Толщина метала (мм): ");
             string MetalThickness = Console.ReadLine();
 
-            ExhaustSystem e = n.GetExhaustSystem(Name, Accommodation, Material, MetalThickness);//????
+            ExhaustSystem e = n.GetExhaustSystem(Name, Accommodation, Material, MetalThickness);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
             e.PrintExhaustSystem();
             //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
             //goods.Add(1, b);
@@ -589,9 +608,10 @@ namespace C__MyProject
             //dbStock.LoadAllData();
         }
 
-        public static void Filters()
+        public static void FebestFilters()
         {
-            IGoodsAbstractFactory n = new NippartsFactory();//???
+            Console.Clear();
+            IGoodsAbstractFactory n = new FebestFactory();
 
             Console.WriteLine("Наименование: ");
             string Name = Console.ReadLine();
@@ -613,7 +633,12 @@ namespace C__MyProject
             string Guarantee = Console.ReadLine();
 
             Filters f = n.GetFilters(Name, FilterType, ExecutingFilter, Height, OutsideDiameter1,
-            OutsideDiameter2, SealedGasketDiameter, InternalThread, Guarantee);//????
+            OutsideDiameter2, SealedGasketDiameter, InternalThread, Guarantee);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
             f.PrintFilters();
             //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
             //goods.Add(1, b);
@@ -621,9 +646,733 @@ namespace C__MyProject
             //dbStock.LoadAllData();
         }
 
-        public static void AirСonditioningСompressors()
+        public static void FebestAirСonditioningСompressors()
         {
-            IGoodsAbstractFactory n = new NippartsFactory();//???
+            Console.Clear();
+            IGoodsAbstractFactory n = new FebestFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Длина (мм): ");
+            string Length = Console.ReadLine();
+            Console.WriteLine("Высота (мм): ");
+            string Height = Console.ReadLine();
+            Console.WriteLine("Количество ребер: ");
+            int NumberOfRibs = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Шкива (мм): ");
+            string Pulley = Console.ReadLine();
+            Console.WriteLine("Вес (г): ");
+            string Weight = Console.ReadLine();
+            Console.WriteLine("Количество масла (мл): ");
+            string AmountOfOil = Console.ReadLine();
+            Console.WriteLine("Хладагент: ");
+            string Coolant = Console.ReadLine();
+            Console.WriteLine("Впускной (мм): ");
+            string Inlet = Console.ReadLine();
+            Console.WriteLine("Выпускной (мм): ");
+            string Outlet = Console.ReadLine();
+            Console.WriteLine("Компресорное масло: ");
+            string CompressorOil = Console.ReadLine();
+
+            AirСonditioningСompressors f = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs,
+                Pulley, Weight, AmountOfOil, Coolant, Inlet, Outlet, CompressorOil);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            f.PrintAirСonditioningСompressors();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void FebestStarters()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new FebestFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+
+            Console.WriteLine("Марка автомобиля: ");
+            string CarBrand = Console.ReadLine();
+            Console.WriteLine("Модель автомобиля: ");
+            string CarModel = Console.ReadLine();
+            Console.WriteLine("Год выпуска автомобиля: ");
+            string YearCar = Console.ReadLine();
+            Console.WriteLine("Количество зубцов: ");
+            int NumberOfTeeth = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Напряжение (В): ");
+            string Voltage = Console.ReadLine();
+            Console.WriteLine("Габариты (мм): ");
+            string Dimensions = Console.ReadLine();
+
+            Starters s = n.GetStarters(Name, CarBrand, CarModel, YearCar, NumberOfTeeth, Voltage, Dimensions);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            s.PrintStarters();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void FebestSprings()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new FebestFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Марка автомобиля: ");
+            string CarBrand = Console.ReadLine();
+            Console.WriteLine("Модель автомобиля: ");
+            string CarModel = Console.ReadLine();
+            Console.WriteLine("Длина (мм): ");
+            string Length = Console.ReadLine();
+            Console.WriteLine("Ширина (мм): ");
+            string Width = Console.ReadLine();
+            Console.WriteLine("Толщина по центру (мм): ");
+            string ThicknessInTheCenter = Console.ReadLine();
+
+            Springs s = n.GetSprings(Name, Accommodation, CarBrand, CarModel, Length, Width, ThicknessInTheCenter);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            s.PrintSprings();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+        public static void SKFBearings()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SKFFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Ширина1 (мм): ");
+            string Width1 = Console.ReadLine();
+            Console.WriteLine("Ширина2 (мм): ");
+            string Width2 = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр1 (мм): ");
+            string OutsideDiameter1 = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр2 (мм): ");
+            string OutsideDiameter2 = Console.ReadLine();
+            Console.WriteLine("Внутрений диаметр1 (мм): ");
+            string InnerDiameter1 = Console.ReadLine();
+            Console.WriteLine("Внутрений диаметр2 (мм): ");
+            string InnerDiameter2 = Console.ReadLine();
+            Bearings b = n.GetBearings(Name, Accommodation, Width1, Width2, OutsideDiameter1, OutsideDiameter2,
+                InnerDiameter1, InnerDiameter2);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            b.PrintBearings();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void SKFShockAbsorbers()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SKFFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Сторона: ");
+            string Side = Console.ReadLine();
+            Console.WriteLine("Вид наполнителя: ");
+            string TypeOfFiller = Console.ReadLine();
+            Console.WriteLine("Количество на ось: ");
+            int QuantityPerAxle = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Гарантия: ");
+            string Guarantee = Console.ReadLine();
+            Console.WriteLine("Гарантия в комплекте: ");
+            string WarrantyIncluded = Console.ReadLine();
+
+            ShockAbsorbers s = n.GetShockAbsorbers(Name, Accommodation, Side, TypeOfFiller, QuantityPerAxle, Guarantee,
+                WarrantyIncluded);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            s.PrintShockAbsorbers();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+        public static void SKFExhaustSystem()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SKFFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Материал: ");
+            string Material = Console.ReadLine();
+            Console.WriteLine("Толщина метала (мм): ");
+            string MetalThickness = Console.ReadLine();
+
+            ExhaustSystem e = n.GetExhaustSystem(Name, Accommodation, Material, MetalThickness);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            e.PrintExhaustSystem();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void SKFFilters()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SKFFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Тип фильтра: ");
+            string FilterType = Console.ReadLine();
+            Console.WriteLine("Выполнение фильтра: ");
+            string ExecutingFilter = Console.ReadLine();
+            Console.WriteLine("Высота (мм): ");
+            string Height = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр1 (мм): ");
+            string OutsideDiameter1 = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр2 (мм): ");
+            string OutsideDiameter2 = Console.ReadLine();
+            Console.WriteLine("Диаметр уплотненной прокладки (мм): ");
+            string SealedGasketDiameter = Console.ReadLine();
+            Console.WriteLine("Внутреняя резьба (мм): ");
+            string InternalThread = Console.ReadLine();
+            Console.WriteLine("Гарантия: ");
+            string Guarantee = Console.ReadLine();
+
+            Filters f = n.GetFilters(Name, FilterType, ExecutingFilter, Height, OutsideDiameter1,
+            OutsideDiameter2, SealedGasketDiameter, InternalThread, Guarantee);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            f.PrintFilters();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void SKFAirСonditioningСompressors()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SKFFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Длина (мм): ");
+            string Length = Console.ReadLine();
+            Console.WriteLine("Высота (мм): ");
+            string Height = Console.ReadLine();
+            Console.WriteLine("Количество ребер: ");
+            int NumberOfRibs = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Шкива (мм): ");
+            string Pulley = Console.ReadLine();
+            Console.WriteLine("Вес (г): ");
+            string Weight = Console.ReadLine();
+            Console.WriteLine("Количество масла (мл): ");
+            string AmountOfOil = Console.ReadLine();
+            Console.WriteLine("Хладагент: ");
+            string Coolant = Console.ReadLine();
+            Console.WriteLine("Впускной (мм): ");
+            string Inlet = Console.ReadLine();
+            Console.WriteLine("Выпускной (мм): ");
+            string Outlet = Console.ReadLine();
+            Console.WriteLine("Компресорное масло: ");
+            string CompressorOil = Console.ReadLine();
+
+            AirСonditioningСompressors f = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs,
+                Pulley, Weight, AmountOfOil, Coolant, Inlet, Outlet, CompressorOil);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            f.PrintAirСonditioningСompressors();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void SKFStarters()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SKFFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+
+            Console.WriteLine("Марка автомобиля: ");
+            string CarBrand = Console.ReadLine();
+            Console.WriteLine("Модель автомобиля: ");
+            string CarModel = Console.ReadLine();
+            Console.WriteLine("Год выпуска автомобиля: ");
+            string YearCar = Console.ReadLine();
+            Console.WriteLine("Количество зубцов: ");
+            int NumberOfTeeth = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Напряжение (В): ");
+            string Voltage = Console.ReadLine();
+            Console.WriteLine("Габариты (мм): ");
+            string Dimensions = Console.ReadLine();
+
+            Starters s = n.GetStarters(Name, CarBrand, CarModel, YearCar, NumberOfTeeth, Voltage, Dimensions);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            s.PrintStarters();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void SKFSprings()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SKFFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Марка автомобиля: ");
+            string CarBrand = Console.ReadLine();
+            Console.WriteLine("Модель автомобиля: ");
+            string CarModel = Console.ReadLine();
+            Console.WriteLine("Длина (мм): ");
+            string Length = Console.ReadLine();
+            Console.WriteLine("Ширина (мм): ");
+            string Width = Console.ReadLine();
+            Console.WriteLine("Толщина по центру (мм): ");
+            string ThicknessInTheCenter = Console.ReadLine();
+
+            Springs s = n.GetSprings(Name, Accommodation, CarBrand, CarModel, Length, Width, ThicknessInTheCenter);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            s.PrintSprings();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+        public static void SWAGBearings()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SWAGFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Ширина1 (мм): ");
+            string Width1 = Console.ReadLine();
+            Console.WriteLine("Ширина2 (мм): ");
+            string Width2 = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр1 (мм): ");
+            string OutsideDiameter1 = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр2 (мм): ");
+            string OutsideDiameter2 = Console.ReadLine();
+            Console.WriteLine("Внутрений диаметр1 (мм): ");
+            string InnerDiameter1 = Console.ReadLine();
+            Console.WriteLine("Внутрений диаметр2 (мм): ");
+            string InnerDiameter2 = Console.ReadLine();
+            Bearings b = n.GetBearings(Name, Accommodation, Width1, Width2, OutsideDiameter1, OutsideDiameter2,
+                InnerDiameter1, InnerDiameter2);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            b.PrintBearings();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void SWAGShockAbsorbers()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SWAGFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Сторона: ");
+            string Side = Console.ReadLine();
+            Console.WriteLine("Вид наполнителя: ");
+            string TypeOfFiller = Console.ReadLine();
+            Console.WriteLine("Количество на ось: ");
+            int QuantityPerAxle = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Гарантия: ");
+            string Guarantee = Console.ReadLine();
+            Console.WriteLine("Гарантия в комплекте: ");
+            string WarrantyIncluded = Console.ReadLine();
+
+            ShockAbsorbers s = n.GetShockAbsorbers(Name, Accommodation, Side, TypeOfFiller, QuantityPerAxle, Guarantee,
+                WarrantyIncluded);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            s.PrintShockAbsorbers();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+        public static void SWAGExhaustSystem()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SWAGFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Материал: ");
+            string Material = Console.ReadLine();
+            Console.WriteLine("Толщина метала (мм): ");
+            string MetalThickness = Console.ReadLine();
+
+            ExhaustSystem e = n.GetExhaustSystem(Name, Accommodation, Material, MetalThickness);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            e.PrintExhaustSystem();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void SWAGFilters()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SWAGFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Тип фильтра: ");
+            string FilterType = Console.ReadLine();
+            Console.WriteLine("Выполнение фильтра: ");
+            string ExecutingFilter = Console.ReadLine();
+            Console.WriteLine("Высота (мм): ");
+            string Height = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр1 (мм): ");
+            string OutsideDiameter1 = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр2 (мм): ");
+            string OutsideDiameter2 = Console.ReadLine();
+            Console.WriteLine("Диаметр уплотненной прокладки (мм): ");
+            string SealedGasketDiameter = Console.ReadLine();
+            Console.WriteLine("Внутреняя резьба (мм): ");
+            string InternalThread = Console.ReadLine();
+            Console.WriteLine("Гарантия: ");
+            string Guarantee = Console.ReadLine();
+
+            Filters f = n.GetFilters(Name, FilterType, ExecutingFilter, Height, OutsideDiameter1,
+            OutsideDiameter2, SealedGasketDiameter, InternalThread, Guarantee);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            f.PrintFilters();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void SWAGAirСonditioningСompressors()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SWAGFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Длина (мм): ");
+            string Length = Console.ReadLine();
+            Console.WriteLine("Высота (мм): ");
+            string Height = Console.ReadLine();
+            Console.WriteLine("Количество ребер: ");
+            int NumberOfRibs = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Шкива (мм): ");
+            string Pulley = Console.ReadLine();
+            Console.WriteLine("Вес (г): ");
+            string Weight = Console.ReadLine();
+            Console.WriteLine("Количество масла (мл): ");
+            string AmountOfOil = Console.ReadLine();
+            Console.WriteLine("Хладагент: ");
+            string Coolant = Console.ReadLine();
+            Console.WriteLine("Впускной (мм): ");
+            string Inlet = Console.ReadLine();
+            Console.WriteLine("Выпускной (мм): ");
+            string Outlet = Console.ReadLine();
+            Console.WriteLine("Компресорное масло: ");
+            string CompressorOil = Console.ReadLine();
+
+            AirСonditioningСompressors f = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs,
+                Pulley, Weight, AmountOfOil, Coolant, Inlet, Outlet, CompressorOil);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            f.PrintAirСonditioningСompressors();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void SWAGStarters()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SWAGFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+
+            Console.WriteLine("Марка автомобиля: ");
+            string CarBrand = Console.ReadLine();
+            Console.WriteLine("Модель автомобиля: ");
+            string CarModel = Console.ReadLine();
+            Console.WriteLine("Год выпуска автомобиля: ");
+            string YearCar = Console.ReadLine();
+            Console.WriteLine("Количество зубцов: ");
+            int NumberOfTeeth = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Напряжение (В): ");
+            string Voltage = Console.ReadLine();
+            Console.WriteLine("Габариты (мм): ");
+            string Dimensions = Console.ReadLine();
+
+            Starters s = n.GetStarters(Name, CarBrand, CarModel, YearCar, NumberOfTeeth, Voltage, Dimensions);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            s.PrintStarters();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void SWAGSprings()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new SWAGFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Марка автомобиля: ");
+            string CarBrand = Console.ReadLine();
+            Console.WriteLine("Модель автомобиля: ");
+            string CarModel = Console.ReadLine();
+            Console.WriteLine("Длина (мм): ");
+            string Length = Console.ReadLine();
+            Console.WriteLine("Ширина (мм): ");
+            string Width = Console.ReadLine();
+            Console.WriteLine("Толщина по центру (мм): ");
+            string ThicknessInTheCenter = Console.ReadLine();
+
+            Springs s = n.GetSprings(Name, Accommodation, CarBrand, CarModel, Length, Width, ThicknessInTheCenter);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            s.PrintSprings();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+        public static void NippartsBearings()
+        {
+            Console.Clear();
+            IGoodsAbstractFactory n = new NippartsFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Ширина1 (мм): ");
+            string Width1 = Console.ReadLine();
+            Console.WriteLine("Ширина2 (мм): ");
+            string Width2 = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр1 (мм): ");
+            string OutsideDiameter1 = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр2 (мм): ");
+            string OutsideDiameter2 = Console.ReadLine();
+            Console.WriteLine("Внутрений диаметр1 (мм): ");
+            string InnerDiameter1 = Console.ReadLine();
+            Console.WriteLine("Внутрений диаметр2 (мм): ");
+            string InnerDiameter2 = Console.ReadLine();
+            Bearings b = n.GetBearings(Name, Accommodation, Width1, Width2, OutsideDiameter1, OutsideDiameter2,
+                InnerDiameter1, InnerDiameter2);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            b.PrintBearings();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void NippartsShockAbsorbers()
+        {
+            Console.Clear ();
+            IGoodsAbstractFactory n = new NippartsFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Сторона: ");
+            string Side = Console.ReadLine();
+            Console.WriteLine("Вид наполнителя: ");
+            string TypeOfFiller = Console.ReadLine();
+            Console.WriteLine("Количество на ось: ");
+            int QuantityPerAxle = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Гарантия: ");
+            string Guarantee = Console.ReadLine();
+            Console.WriteLine("Гарантия в комплекте: ");
+            string WarrantyIncluded = Console.ReadLine();
+
+            ShockAbsorbers s = n.GetShockAbsorbers(Name, Accommodation, Side, TypeOfFiller, QuantityPerAxle, Guarantee,
+                WarrantyIncluded);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            s.PrintShockAbsorbers();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+        public static void NippartsExhaustSystem()
+        {
+            Console.Clear ();
+            IGoodsAbstractFactory n = new NippartsFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Размещение: ");
+            string Accommodation = Console.ReadLine();
+            Console.WriteLine("Материал: ");
+            string Material = Console.ReadLine();
+            Console.WriteLine("Толщина метала (мм): ");
+            string MetalThickness = Console.ReadLine();
+
+            ExhaustSystem e = n.GetExhaustSystem(Name, Accommodation, Material, MetalThickness);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            e.PrintExhaustSystem();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void NippartsFilters()
+        {
+            Console.Clear ();
+            IGoodsAbstractFactory n = new NippartsFactory();
+
+            Console.WriteLine("Наименование: ");
+            string Name = Console.ReadLine();
+            Console.WriteLine("Тип фильтра: ");
+            string FilterType = Console.ReadLine();
+            Console.WriteLine("Выполнение фильтра: ");
+            string ExecutingFilter = Console.ReadLine();
+            Console.WriteLine("Высота (мм): ");
+            string Height = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр1 (мм): ");
+            string OutsideDiameter1 = Console.ReadLine();
+            Console.WriteLine("Наружный диаметр2 (мм): ");
+            string OutsideDiameter2 = Console.ReadLine();
+            Console.WriteLine("Диаметр уплотненной прокладки (мм): ");
+            string SealedGasketDiameter = Console.ReadLine();
+            Console.WriteLine("Внутреняя резьба (мм): ");
+            string InternalThread = Console.ReadLine();
+            Console.WriteLine("Гарантия: ");
+            string Guarantee = Console.ReadLine();
+
+            Filters f = n.GetFilters(Name, FilterType, ExecutingFilter, Height, OutsideDiameter1,
+            OutsideDiameter2, SealedGasketDiameter, InternalThread, Guarantee);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
+            f.PrintFilters();
+            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
+            //goods.Add(1, b);
+            //dbStock.SaveAllData(goods);//не добавляется
+            //dbStock.LoadAllData();
+        }
+
+        public static void NippartsAirСonditioningСompressors()
+        {
+            Console.Clear ();
+            IGoodsAbstractFactory n = new NippartsFactory();
 
             Console.WriteLine("Наименование: ");
             string Name = Console.ReadLine();
@@ -649,7 +1398,12 @@ namespace C__MyProject
             string CompressorOil = Console.ReadLine();
 
             AirСonditioningСompressors f = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs, 
-                Pulley, Weight, AmountOfOil, Coolant, Inlet, Outlet, CompressorOil);//????
+                Pulley, Weight, AmountOfOil, Coolant, Inlet, Outlet, CompressorOil);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
             f.PrintAirСonditioningСompressors();
             //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
             //goods.Add(1, b);
@@ -657,9 +1411,10 @@ namespace C__MyProject
             //dbStock.LoadAllData();
         }
 
-        public static void Starters()
+        public static void NippartsStarters()
         {
-            IGoodsAbstractFactory n = new NippartsFactory();//???
+            Console.Clear();
+            IGoodsAbstractFactory n = new NippartsFactory();
 
             Console.WriteLine("Наименование: ");
             string Name = Console.ReadLine();
@@ -677,7 +1432,12 @@ namespace C__MyProject
             Console.WriteLine("Габариты (мм): ");
             string Dimensions = Console.ReadLine();
 
-            Starters s = n.GetStarters(Name, CarBrand, CarModel, YearCar, NumberOfTeeth, Voltage, Dimensions);//????
+            Starters s = n.GetStarters(Name, CarBrand, CarModel, YearCar, NumberOfTeeth, Voltage, Dimensions);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
             s.PrintStarters();
             //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
             //goods.Add(1, b);
@@ -685,9 +1445,10 @@ namespace C__MyProject
             //dbStock.LoadAllData();
         }
 
-        public static void Springs()
+        public static void NippartsSprings()
         {
-            IGoodsAbstractFactory n = new NippartsFactory();//???
+            Console.Clear();
+            IGoodsAbstractFactory n = new NippartsFactory();
 
             Console.WriteLine("Наименование: ");
             string Name = Console.ReadLine();
@@ -704,7 +1465,12 @@ namespace C__MyProject
             Console.WriteLine("Толщина по центру (мм): ");
             string ThicknessInTheCenter = Console.ReadLine();
 
-            Springs s = n.GetSprings(Name, Accommodation, CarBrand, CarModel, Length, Width, ThicknessInTheCenter);//????
+            Springs s = n.GetSprings(Name, Accommodation, CarBrand, CarModel, Length, Width, ThicknessInTheCenter);
+            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("Товар добавлен!");
+            Console.WriteLine();
             s.PrintSprings();
             //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
             //goods.Add(1, b);
@@ -751,8 +1517,9 @@ namespace C__MyProject
         public static void Exit()
         {
             System.Environment.Exit(0);
+            Console.Clear();
         }
-        
+
         
     }
 }

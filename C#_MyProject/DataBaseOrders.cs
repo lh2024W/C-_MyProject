@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace C__MyProject
@@ -19,51 +20,41 @@ namespace C__MyProject
             serializer.Serialize(sw, orders);
             sw.Close();
         }
-
+        
         public void LoadAllData()
         {
-            var serializer = new XmlSerializer(typeof(List<OrderComponent>));
-            var read = new FileStream(path, FileMode.Open, FileAccess.Read);
-            var copy = (List<OrderComponent>)serializer.Deserialize(read);
-
-            read.Close();
-
-            foreach (var order in copy)
+            /*using (var reader = XmlReader.Create(new StringReader(path), new XmlReaderSettings { ConformanceLevel = ConformanceLevel.Fragment }))
             {
-                Console.WriteLine(order);
+               
+            XmlSerializer formatter = new XmlSerializer(typeof(List<OrderComponent>));
+            using (FileStream fs = new FileStream("orders.xml", FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, orders);
             }
-        }
 
-        public void FindOrderInFile(string licensePlate)
-        {
-            var serializer = new XmlSerializer(typeof(List<OrderComponent>));
-            var read = new FileStream(path, FileMode.Open, FileAccess.Read);
-            var copy = (List<OrderComponent>)serializer.Deserialize(read);
-
-            read.Close();
-
-            foreach (var order in copy)
+            using (FileStream fs = new FileStream("orders.xml", FileMode.OpenOrCreate))
             {
-                if (order.Description == licensePlate)
+                List<OrderComponent> orders1 = formatter.Deserialize(fs) as List<OrderComponent>;
+
+                if (orders1 != null)
                 {
-                    Console.WriteLine(order);
+                    foreach (var order in orders1)
+                    {
+                        Console.WriteLine(order);
+                    }
                 }
-            }
-        }
-
-        public void SortOrders()
-        {
+            }*/
             var serializer = new XmlSerializer(typeof(List<OrderComponent>));
             var read = new FileStream(path, FileMode.Open, FileAccess.Read);
             var copy = (List<OrderComponent>)serializer.Deserialize(read);
 
             read.Close();
 
-            copy.Sort();
             foreach (var order in copy)
             {
                 Console.WriteLine(order);
             }
         }
+
     }
 }

@@ -7,32 +7,33 @@ using System.Threading.Tasks;
 
 namespace C__MyProject
 {
+    [Serializable]
     public class OrderLeaf : OrderComponent, IComparable
     {
-        Car car;
+        public Car Car { get; set; }
         public DateTime DateTime { get; set; }
 
         public OrderLeaf() { }
         public OrderLeaf(string description, Car car) : base(description)
         {
-            this.car = car;
+            this.Car = car;
             this.DateTime = DateTime.Now;
             this.Description = description;
         }
 
         public override string ToString()
         {
-            return "Марка: " + car.Brand + ' ' + "Модель: " + car.Model + ' ' + "Год выпуска: " + car.Year + ' '
-                + "Номерной знак: " + car.LicensePlate + ' ' + "Описание работ: " + Description + ' ' +
+            return "Марка: " + Car.Brand + ' ' + "Модель: " + Car.Model + ' ' + "Год выпуска: " + Car.Year + ' '
+                + "Номерной знак: " + Car.LicensePlate + ' ' + "Описание работ: " + Description + ' ' +
                 "Дата оформления заказа: " + DateTime;
         }
 
         public void PrintOrder()
         {
             Console.WriteLine("Автомобиль: ");
-            Console.WriteLine("Марка: " + car.Brand);
-            Console.WriteLine("Модель: " + car.Model);
-            Console.WriteLine("Номерной знак: " + car.LicensePlate);
+            Console.WriteLine("Марка: " + Car.Brand);
+            Console.WriteLine("Модель: " + Car.Model);
+            Console.WriteLine("Номерной знак: " + Car.LicensePlate);
             Console.WriteLine("Описание работ: " + Description);
             Console.WriteLine("Дата оформления заказа: " + DateTime);
         }

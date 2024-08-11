@@ -49,6 +49,12 @@ namespace C__MyProject
                 {
                     return car;
                 }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Автомобиль с таким номером отсутствует!");
+                    
+                }
             }
             return null;
         }

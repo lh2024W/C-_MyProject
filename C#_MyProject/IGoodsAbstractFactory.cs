@@ -12,7 +12,7 @@ namespace C__MyProject
             string OutsideDiameter2, string InnerDiameter1, string InnerDiameter2);
         ShockAbsorbers GetShockAbsorbers(string Name, string Accommodation, string Side, string TypeOfFiller,
             int QuantityPerAxle, string Guarantee, string WarrantyIncluded);
-        ExhaustSystem GetExhaustSystem(string Name, string Accommodation, string Material, string MetalThickness);
+        ExhaustSystem GetExhaustSystem(string Name, string Material, string MetalThickness);
         Filters GetFilters(string Name, string FilterType, string ExecutingFilter, string Height, string OutsideDiameter1,
             string OutsideDiameter2, string SealedGasketDiameter, string InternalThread, string Guarantee);
         AirСonditioningСompressors GetAirСonditioningСompressors(string Name, string Length, string Height, int NumberOfRibs,

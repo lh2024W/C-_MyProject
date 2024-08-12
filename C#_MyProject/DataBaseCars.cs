@@ -9,7 +9,7 @@ namespace C__MyProject
 {
     public class DataBaseCars
     {
-
+        //string path = @"C:\Users\user\Desktop\Cars.xml";
         string path = @"Cars.xml";
 
         public void SaveAllData(List<Car> cars)
@@ -51,9 +51,7 @@ namespace C__MyProject
                 }
                 else
                 {
-                    Console.Clear();
                     Console.WriteLine("Автомобиль с таким номером отсутствует!");
-                    
                 }
             }
             return null;

@@ -22,9 +22,9 @@ namespace C__MyProject
                 WarrantyIncluded);
         }
 
-        public ExhaustSystem GetExhaustSystem(string Name, string Accommodation, string Material, string MetalThickness)
+        public ExhaustSystem GetExhaustSystem(string Name, string Material, string MetalThickness)
         {
-            return new SKFExhaustSystem(Name, Accommodation, Material, MetalThickness);
+            return new SKFExhaustSystem(Name, Material, MetalThickness);
         }
 
         public Filters GetFilters(string Name, string FilterType, string ExecutingFilter, string Height, string OutsideDiameter1,

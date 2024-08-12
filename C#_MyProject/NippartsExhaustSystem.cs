@@ -10,7 +10,7 @@ namespace C__MyProject
 {
     public class NippartsExhaustSystem : ExhaustSystem
     {
-        public NippartsExhaustSystem(string Name, string Accommodation, string Material, string MetalThickness)
+        public NippartsExhaustSystem(string Name, string Material, string MetalThickness)
         {
             this.Name = Name;
             CountryManufacturer = "Нидерланды";

@@ -17,17 +17,24 @@ namespace C__MyProject
         
         static void Main(string[] args)
         {
-            //1. не проходит сериализация ордеров
-            //2. не проходит сериализация товаров
-            //3. не работает выход из меню - встроенного делегата (Добавить товар)
-            //4. меню добавление товара запуталась(((
-            //5. как сделать поиск товара по имени в SortedDictionary?
+            //Планы на будущее:
+            //1. Использовать паттерн Компоновщик для создания чека
+            //2. Использовать паттерн Состояние для оплаты чека
+            //3. Использовать паттерн Итератор для Склада (приход/расход)
+            //4. Добавить в меню:
+                            //Создать сотрудника
+                            //Показать сотрудников 
 
-            //Доделать:
-            //1. Доделать меню
-            //2. Использовать паттерн Компоновщик для создания чека
-            //3. Использовать паттерн Состояние для оплаты чека
-            //4. Использовать паттерн Итератор для Склада (приход/расход)
+            //List <Worker> employees = new List<Worker>();
+            //Worker worker = new Worker("Виктор", "Иванович", "Глущенко", new DateTime(1990,10,06),
+            //new DateTime(2023,01,21), new DateTime(2024,10,10), "Автослесарь", 8950.50);
+
+            // worker.ToString();
+            //employees.Add(worker);
+            ///dbEmployees.SaveAllData(employees);
+            //dbEmployees.LoadAllData();
+            //dbEmployees.FindWorkerInFile("Глущенко");
+            //dbEmployees.SortEmployees();
 
 
             DelegateChoice choice = CreateCar;
@@ -36,21 +43,11 @@ namespace C__MyProject
             choice += SortCarsByBrand;
             choice += CreateOrder;
             choice += CreateGood;
-            choice += PrintGoods;
-            choice += FindGoodByName;
-            choice += FindGoodByNameManufacturer;
-            choice += FindGoodByCategory;
-            choice += FindGoodByDate;
-            choice += PrintCheck;
-            choice += PayCheck;
             choice += Exit;
 
             string[] menuItems = new string[] { "\t\t\tСоздать автомобиль", "\t\t\tПосмотреть все автомобили в базе данных",
                  "\t\t\tНайти автомобиль по номерному знаку в базе данных", "\t\t\tОтсортировать автомобили в базе данных по марке авто",
-                 "\t\t\tСоздать заказ", "\t\t\tДобавить товар", "\t\t\tПоказать все товары в базе данных", 
-                "\t\t\tНайти товар по названию", "\t\t\tНайти товар по названию производителя", 
-                "\t\t\tНайти товар по категории","\t\t\tНайти товар по дате получения",
-                 "\t\t\tРаспечатать чек", "\t\t\tОплатить чек", "\t\t\tВыход" };
+                 "\t\t\tСоздать заказ", "\t\t\tДобавить товар", "\t\t\tВыход" };
 
             Console.Title = "БАЗА ДАННЫХ СТО";
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -77,7 +74,7 @@ namespace C__MyProject
                     case ConsoleKey.Enter:
                         switch (index)
                         {
-                            case 14:
+                            case 7:
                                 Console.WriteLine("Выбран выход из программы!");
                                 return;
                             default:
@@ -88,82 +85,6 @@ namespace C__MyProject
                         break;
                 }
             }
-        
-            /*DataBaseCars dbCars = new DataBaseCars();
-             DataBaseOrders dbOrders = new DataBaseOrders();
-             DataBaseEmployees dbEmployees = new DataBaseEmployees();
-             DataBaseStock dbStock = new DataBaseStock();
-
-             List<Car> cars = new List<Car>();
-             List<OrderComponent> orders = new List<OrderComponent>();
-             SortedDictionary<int, Details> goods = new SortedDictionary<int, Details>();
-
-             Car car = new Car("Ford", "2154FD", 1999, "21589KO");
-             cars.Add(car);
-
-             car = new Car("Audi", "210VB", 2005, "368894AH");
-             cars.Add(car);
-            dbOrders.LoadAllData();
-            */
-            //dbCars.SaveAllData(cars);
-            //dbCars.LoadAllData();
-            //Console.WriteLine(dbCars.FindCarInFile("21589KO"));
-
-            //dbCars.SortCars();
-
-            // string licensePlate;
-            //Console.WriteLine("Enter license plate!");
-            //licensePlate = Console.ReadLine();
-            //Car c = dbCars.FindCarInFile(licensePlate);
-
-            //Order order = new Order("Мотор стучит", c);
-
-            //orders.Add(order);
-            //order.PrintOrder();
-
-            //dbOrders.SaveAllData(orders);// не проходит сериализация
-            //dbOrders.LoadAllData();
-            //dbOrders.FindOrderInFile("Мотор стучит");
-            //dbOrders.SortOrders();
-
-            //IGoodsAbstractFactory n = new NippartsFactory();
-            //Bearings b = n.GetBearings("Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм");
-            //b.PrintBearings();
-
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
-
-
-            // IGoodsAbstractFactory s = new SWAGFactory();
-            // Bearings bearings = s.GetBearings("Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм");
-            //bearings.PrintBearings();
-            //Random random = new Random();
-            //goods.Add(random.Next(0, 10000000), bearings);
-            // goods.Add(2, bearings);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
-
-            //IGoodsAbstractFactory f = new FebestFactory();
-            //ShockAbsorbers s1 = f.GetShockAbsorbers("Амортизатор", "Задний", "Двухсторонний", "Газооливковый", 1, "1 год или 25000 км", "2 года или 70000км");
-            //s1.PrintShockAbsorbers();
-            //Random random = new Random();
-            //goods.Add(random.Next(0, 10000000), s1);
-            //goods.Add(3, s1);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
-
-            //List <Worker> employees = new List<Worker>();
-            //Worker worker = new Worker("Виктор", "Иванович", "Глущенко", new DateTime(1990,10,06),
-            //new DateTime(2023,01,21), new DateTime(2024,10,10), "Автослесарь", 8950.50);
-
-            // worker.ToString();
-            //employees.Add(worker);
-            ///dbEmployees.SaveAllData(employees);
-            //dbEmployees.LoadAllData();
-            //dbEmployees.FindWorkerInFile("Глущенко");
-            //dbEmployees.SortEmployees();
-
         }
 
         private static void DrawMenu(string[] items, int row, int col, int index)
@@ -186,7 +107,7 @@ namespace C__MyProject
             string brand; string model; int year; string licensePlate;
             DataBaseCars dbCars = new DataBaseCars();
             List<Car> cars = new List<Car>();
-
+            Console.Clear();
             Console.WriteLine("Введите марку автомобиля: ");
             brand = Convert.ToString (Console.ReadLine());
             Console.WriteLine("Введите модель автомобиля: ");
@@ -200,6 +121,7 @@ namespace C__MyProject
             cars.Add (car);
             dbCars.SaveAllData(cars);
             Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n");
             Console.WriteLine("Автомобиль добавлен в базу данных!");
         }
 
@@ -214,6 +136,7 @@ namespace C__MyProject
         {             
             DataBaseCars dbCars = new DataBaseCars();
             Console.Clear();
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n");
             Console.WriteLine("\n\nВведите номерной знак автомобиля для поиска: ");
             string licensePlate = Console.ReadLine();
             Console.WriteLine("Автомобиль: " + dbCars.FindCarInFile(licensePlate));
@@ -223,7 +146,7 @@ namespace C__MyProject
         {
             Console.Clear();
             DataBaseCars dbCars = new DataBaseCars();
-            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             dbCars.SortCars();
         }
 
@@ -251,7 +174,7 @@ namespace C__MyProject
                 OrderLeaf order = new OrderLeaf(description, c);
                 orders.Add(order);
                 Console.Clear();
-                Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                 order.PrintOrder();
                 dbOrders.SaveAllData(orders);
                 
@@ -276,7 +199,7 @@ namespace C__MyProject
                 OrderComposite order = new OrderComposite(description, brand, model, year, licensePlate);
                 orders.Add(order);
                 Console.Clear();
-                Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                 order.PrintOrder();
                 dbOrders.SaveAllData(orders);
 
@@ -289,6 +212,7 @@ namespace C__MyProject
 
         public static void CreateGood()
         {
+            Console.Clear();
             Console.WriteLine("Выберите производителя:");
             DelegateChoice1 choice = Nipparts;
             choice += SWAG;
@@ -542,10 +466,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             b.PrintBearings();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void FebestShockAbsorbers()
@@ -576,10 +496,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintShockAbsorbers();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
         public static void FebestExhaustSystem()
         {
@@ -588,24 +504,18 @@ namespace C__MyProject
 
             Console.WriteLine("Наименование: ");
             string Name = Console.ReadLine();
-            Console.WriteLine("Размещение: ");
-            string Accommodation = Console.ReadLine();
             Console.WriteLine("Материал: ");
             string Material = Console.ReadLine();
             Console.WriteLine("Толщина метала (мм): ");
             string MetalThickness = Console.ReadLine();
 
-            ExhaustSystem e = n.GetExhaustSystem(Name, Accommodation, Material, MetalThickness);
+            ExhaustSystem e = n.GetExhaustSystem(Name, Material, MetalThickness);
             Console.WriteLine();
             Console.Clear();
             Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             e.PrintExhaustSystem();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void FebestFilters()
@@ -640,10 +550,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             f.PrintFilters();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void FebestAirСonditioningСompressors()
@@ -674,18 +580,14 @@ namespace C__MyProject
             Console.WriteLine("Компресорное масло: ");
             string CompressorOil = Console.ReadLine();
 
-            AirСonditioningСompressors f = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs,
+            AirСonditioningСompressors a = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs,
                 Pulley, Weight, AmountOfOil, Coolant, Inlet, Outlet, CompressorOil);
             Console.WriteLine();
             Console.Clear();
             Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
-            f.PrintAirСonditioningСompressors();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
+            a.PrintAirСonditioningСompressors();
         }
 
         public static void FebestStarters()
@@ -716,10 +618,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintStarters();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void FebestSprings()
@@ -749,10 +647,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintSprings();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
         public static void SKFBearings()
         {
@@ -783,10 +677,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             b.PrintBearings();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void SKFShockAbsorbers()
@@ -817,10 +707,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintShockAbsorbers();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
         public static void SKFExhaustSystem()
         {
@@ -829,24 +715,18 @@ namespace C__MyProject
 
             Console.WriteLine("Наименование: ");
             string Name = Console.ReadLine();
-            Console.WriteLine("Размещение: ");
-            string Accommodation = Console.ReadLine();
             Console.WriteLine("Материал: ");
             string Material = Console.ReadLine();
             Console.WriteLine("Толщина метала (мм): ");
             string MetalThickness = Console.ReadLine();
 
-            ExhaustSystem e = n.GetExhaustSystem(Name, Accommodation, Material, MetalThickness);
+            ExhaustSystem e = n.GetExhaustSystem(Name, Material, MetalThickness);
             Console.WriteLine();
             Console.Clear();
             Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             e.PrintExhaustSystem();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void SKFFilters()
@@ -881,10 +761,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             f.PrintFilters();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void SKFAirСonditioningСompressors()
@@ -915,18 +791,14 @@ namespace C__MyProject
             Console.WriteLine("Компресорное масло: ");
             string CompressorOil = Console.ReadLine();
 
-            AirСonditioningСompressors f = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs,
+            AirСonditioningСompressors a = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs,
                 Pulley, Weight, AmountOfOil, Coolant, Inlet, Outlet, CompressorOil);
             Console.WriteLine();
             Console.Clear();
             Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
-            f.PrintAirСonditioningСompressors();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
+            a.PrintAirСonditioningСompressors();
         }
 
         public static void SKFStarters()
@@ -957,10 +829,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintStarters();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void SKFSprings()
@@ -990,10 +858,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintSprings();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
         public static void SWAGBearings()
         {
@@ -1024,10 +888,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             b.PrintBearings();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void SWAGShockAbsorbers()
@@ -1058,10 +918,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintShockAbsorbers();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
         public static void SWAGExhaustSystem()
         {
@@ -1070,24 +926,18 @@ namespace C__MyProject
 
             Console.WriteLine("Наименование: ");
             string Name = Console.ReadLine();
-            Console.WriteLine("Размещение: ");
-            string Accommodation = Console.ReadLine();
             Console.WriteLine("Материал: ");
             string Material = Console.ReadLine();
             Console.WriteLine("Толщина метала (мм): ");
             string MetalThickness = Console.ReadLine();
 
-            ExhaustSystem e = n.GetExhaustSystem(Name, Accommodation, Material, MetalThickness);
+            ExhaustSystem e = n.GetExhaustSystem(Name, Material, MetalThickness);
             Console.WriteLine();
             Console.Clear();
             Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             e.PrintExhaustSystem();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void SWAGFilters()
@@ -1122,10 +972,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             f.PrintFilters();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void SWAGAirСonditioningСompressors()
@@ -1156,18 +1002,14 @@ namespace C__MyProject
             Console.WriteLine("Компресорное масло: ");
             string CompressorOil = Console.ReadLine();
 
-            AirСonditioningСompressors f = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs,
+            AirСonditioningСompressors a = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs,
                 Pulley, Weight, AmountOfOil, Coolant, Inlet, Outlet, CompressorOil);
             Console.WriteLine();
             Console.Clear();
             Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
-            f.PrintAirСonditioningСompressors();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
+            a.PrintAirСonditioningСompressors();
         }
 
         public static void SWAGStarters()
@@ -1198,10 +1040,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintStarters();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void SWAGSprings()
@@ -1231,10 +1069,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintSprings();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
         public static void NippartsBearings()
         {
@@ -1265,10 +1099,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             b.PrintBearings();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void NippartsShockAbsorbers()
@@ -1299,10 +1129,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintShockAbsorbers();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
         public static void NippartsExhaustSystem()
         {
@@ -1311,24 +1137,18 @@ namespace C__MyProject
 
             Console.WriteLine("Наименование: ");
             string Name = Console.ReadLine();
-            Console.WriteLine("Размещение: ");
-            string Accommodation = Console.ReadLine();
             Console.WriteLine("Материал: ");
             string Material = Console.ReadLine();
             Console.WriteLine("Толщина метала (мм): ");
             string MetalThickness = Console.ReadLine();
 
-            ExhaustSystem e = n.GetExhaustSystem(Name, Accommodation, Material, MetalThickness);
+            ExhaustSystem e = n.GetExhaustSystem(Name, Material, MetalThickness);
             Console.WriteLine();
             Console.Clear();
             Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             e.PrintExhaustSystem();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void NippartsFilters()
@@ -1363,10 +1183,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             f.PrintFilters();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void NippartsAirСonditioningСompressors()
@@ -1397,18 +1213,14 @@ namespace C__MyProject
             Console.WriteLine("Компресорное масло: ");
             string CompressorOil = Console.ReadLine();
 
-            AirСonditioningСompressors f = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs, 
+            AirСonditioningСompressors a = n.GetAirСonditioningСompressors(Name, Length, Height, NumberOfRibs, 
                 Pulley, Weight, AmountOfOil, Coolant, Inlet, Outlet, CompressorOil);
             Console.WriteLine();
             Console.Clear();
             Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n");
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
-            f.PrintAirСonditioningСompressors();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
+            a.PrintAirСonditioningСompressors();
         }
 
         public static void NippartsStarters()
@@ -1439,10 +1251,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintStarters();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void NippartsSprings()
@@ -1472,10 +1280,6 @@ namespace C__MyProject
             Console.WriteLine("Товар добавлен!");
             Console.WriteLine();
             s.PrintSprings();
-            //"Подшипники", "Задний мост", "14,61 мм", "14,73 мм", "39,88 мм", "50,29 мм", "17,46 мм", "29 мм"
-            //goods.Add(1, b);
-            //dbStock.SaveAllData(goods);//не добавляется
-            //dbStock.LoadAllData();
         }
 
         public static void PrintGoods()
@@ -1484,40 +1288,10 @@ namespace C__MyProject
             dbStock.LoadAllData();
         }
 
-        public static void FindGoodByName()
-        {
-
-        }
-
-        public static void FindGoodByNameManufacturer()
-        {
-
-        }
-
-        public static void FindGoodByCategory()
-        {
-
-        }
-
-        public static void FindGoodByDate()
-        {
-
-        }
-
-        public static void PrintCheck()
-        {
-
-        }
-
-        public static void PayCheck()
-        {
-
-        }
-
         public static void Exit()
         {
-            System.Environment.Exit(0);
             Console.Clear();
+            System.Environment.Exit(0);
         }
 
         

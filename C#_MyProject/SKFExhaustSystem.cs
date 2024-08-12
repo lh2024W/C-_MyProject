@@ -8,7 +8,7 @@ namespace C__MyProject
 {
     public class SKFExhaustSystem : ExhaustSystem
     {
-        public SKFExhaustSystem(string Name, string Accommodation, string Material, string MetalThickness)
+        public SKFExhaustSystem(string Name, string Material, string MetalThickness)
         {
             this.Name = Name;
             CountryManufacturer = "Швеция";

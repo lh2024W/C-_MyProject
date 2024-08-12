@@ -8,7 +8,7 @@ namespace C__MyProject
 {
     public class FebestExhaustSystem : ExhaustSystem
     {
-        public FebestExhaustSystem(string Name, string Accommodation, string Material, string MetalThickness)
+        public FebestExhaustSystem(string Name, string Material, string MetalThickness)
         {
             this.Name = Name;
             CountryManufacturer = "Германия";
